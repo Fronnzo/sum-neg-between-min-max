@@ -1,0 +1,54 @@
+{ Задача: сумма отрицательных элементов между максимумом и минимумом.
+  Автор: Полетаев Константин Валерьевич }
+
+program SumNegBetweenMinMax;
+
+const
+  MAXN = 1000;
+
+var
+  A: array[1..MAXN] of integer;
+  N, i, imax, imin, left, right, total: integer;
+
+begin
+  write('Введите N: ');
+  readln(N);
+
+  if (N < 1) or (N > MAXN) then
+  begin
+    writeln('Некорректное N');
+    halt;
+  end;
+
+  for i := 1 to N do
+  begin
+    write('A[', i, '] = ');
+    readln(A[i]);
+  end;
+
+  imax := 1;
+  imin := 1;
+  for i := 2 to N do
+  begin
+    if A[i] > A[imax] then imax := i;
+    if A[i] < A[imin] then imin := i;
+  end;
+
+  if imax < imin then
+  begin
+    left := imax + 1;
+    right := imin - 1;
+  end
+  else
+  begin
+    left := imin + 1;
+    right := imax - 1;
+  end;
+
+  total := 0;
+  for i := left to right do
+    if A[i] < 0 then
+      total := total + A[i];
+
+  writeln('Сумма отрицательных между min и max: ', total);
+end.
